@@ -1,17 +1,49 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
+
 async function main() {
-  await prisma.game.create({
+  // Создаем пользователя
+  const user = await prisma.user.create({
     data: {
-      name: "Game 1",
+      login: 'User 1',
+      rating: 1000,
+      passwordHash: 'hash',
     },
   });
-  await prisma.game.create({
+  const user2 = await prisma.user.create({
     data: {
-      name: "Game 2",
+      login: 'User 2',
+      rating: 2000,
+      passwordHash: 'hash',
     },
   });
+  // Создаем игры
+  // await prisma.game.create({
+  //   data: {
+  //     status: 'idle',
+  //     field: Array(9).fill(null),
+  //     players: {
+  //       connect: {
+  //         id: user.id,
+  //       },
+  //     },
+  //   },
+  // });
+
+  // await prisma.game.create({
+  //   data: {
+  //     status: 'idle',
+  //     field: Array(9).fill(null),
+  //     players: {
+  //       connect: {
+  //         id: user2.id,
+  //       },
+  //     },
+  //   },
+  // });
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect();

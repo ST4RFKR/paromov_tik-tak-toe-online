@@ -1,16 +1,10 @@
-import { prisma } from "@/shared/lib/db";
-import { Button } from "@/shared/ui/button";
-import { Card } from "@/shared/ui/card";
-export default async function Home() {
-  const games = await prisma.game.findMany();
-  console.log(games);
+import { GamesList } from '@/features/games-list/server';
 
+export default async function Home() {
   return (
-    <div>
-      {games.map((game) => (
-        <Card key={game.id}>{game.name}</Card>
-      ))}
-      <Button>Hollo</Button>
+    <div className="flex flex-col gap-4 container mx-auto pt-[200px]">
+      <h1 className="text-3xl">Игры</h1>
+      <GamesList />
     </div>
   );
 }
